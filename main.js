@@ -3,6 +3,9 @@ const abs = Math.abs;
 const canvas = document.getElementById("canvas");
 const shootSound = document.getElementById("shoot-sound");
 
+/**
+ * General Square with positioning, drawing, and collision detection capabilities
+ */
 class UFO {
     constructor(size, center) {
         this.size = size;
@@ -16,11 +19,6 @@ class UFO {
             this.size,
             this.size
         )
-    }
-
-    update() {
-        // this.center.x += 1;
-        // this.center.y -= 1;
     }
 
     isOverlappingV(that) {
@@ -44,10 +42,7 @@ class UFO {
     isNotCollidingWithAnyOf(those) {
         return those.every(one => !one.isCollidingWith(this))
     }
-
 }
-
-
 
 class Game {
     constructor(canvas, shootSound) {
@@ -135,7 +130,6 @@ class Player extends UFO {
             this.center.x += 2;
         }
 
-        
         if (k.isDown(Keyboard.SPACE)) {
             if (Math.random() > .08) return;
 
