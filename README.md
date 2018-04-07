@@ -3,6 +3,13 @@
 
 ## Educational game for teaching HTML5 canvas and plain Javascript
 
+### Youtube Tutorial
+
+* [Part One](https://www.youtube.com/watch?v=cQBPIP2LhCM)
+* [Part Two](https://www.youtube.com/watch?v=gfBDXWAaxdY)
+* [Part Three](https://www.youtube.com/watch?v=f4S6WXpWqfA)
+
+
 ### Work includes:
 
 * HTML5 Canvas
