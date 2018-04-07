@@ -24,3 +24,5 @@
 
 * Having fun !
 
+#### How to detect collision?
+![collision detection](collision.png)
