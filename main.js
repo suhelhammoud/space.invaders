@@ -1,5 +1,4 @@
 const abs = Math.abs;
-
 const canvas = document.getElementById("canvas");
 const shootSound = document.getElementById("shoot-sound");
 
@@ -44,6 +43,7 @@ class UFO {
     }
 }
 
+
 class Game {
     constructor(canvas, shootSound) {
         this.ctx = canvas.getContext("2d");
@@ -66,7 +66,7 @@ class Game {
         return invaders;
     }
 
-    anyINvadersBelow(invader) {
+    anyInvadersBelow(invader) {
         return this.ufos
             .filter(s => s instanceof Invader)
             .some(i => i.center.y > invader.center.y && invader.isOverlappingV(i))
@@ -88,12 +88,25 @@ class Game {
             this.gameIsEnded = true;
             this.ctx.font = "30px Arial";
             this.ctx.textAlign = "center";
-            this.ctx.fillText(`${ufoType.name} loses !`, this.center.x, this.center.y);
+            this.ctx.fillText(`${ufoType.name} lose !`, this.center.x, this.center.y);
+        }
+    }
+
+    checkInvadersLevels() {
+        const anyInvaderReachedLowerLevel = this.ufos
+            .some(ufo => ufo instanceof Invader && ufo.center.y > this.size - 12);
+        if (anyInvaderReachedLowerLevel) {
+            this.gameIsEnded = true;
+            this.ctx.font = "30px Arial";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText(`Player lose !`, this.center.x, this.center.y);
+
         }
     }
 
     update() {
         // check who lose
+        this.checkInvadersLevels();
         this.checkLosing(Player);
         this.checkLosing(Invader);
         this.ufos.forEach(u => u.update());
@@ -143,6 +156,7 @@ class Player extends UFO {
     }
 }
 
+
 class Invader extends UFO {
     constructor(game, center) {
         super(15, center);
@@ -154,12 +168,14 @@ class Invader extends UFO {
     update() {
         if (this.xRelative < 0 || this.xRelative > 50) {
             this.hSpeed = - this.hSpeed;
+            // advance vertically towards player position
+            this.center.y += 15;
         }
         this.center.x += this.hSpeed;
         this.xRelative += this.hSpeed;
 
         if (Math.random() > 0.005) return;
-        if (this.game.anyINvadersBelow(this)) return;
+        if (this.game.anyInvadersBelow(this)) return;
 
         game.ufos.push(new Bullet(
             { x: this.center.x, y: this.center.y + Bullet.SIZE + this.size / 2 },
@@ -167,6 +183,7 @@ class Invader extends UFO {
         ))
     }
 }
+
 
 class Bullet extends UFO {
     static get SIZE() {
