@@ -77,7 +77,7 @@ class Game {
     }
 
     draw(ctx) {
-        this.ufos.forEach(u => u.draw(this.ctx));
+        this.ufos.forEach(u => u.draw(ctx));
     }
 
     checkLosing(ufoType) {
